@@ -1,0 +1,33 @@
+﻿@model ContosoUDemo.Models.Course
+
+@{
+    ViewBag.Title = "UpdateCourseCredits";
+}
+
+<h2>Update Course Credits</h2>
+
+@if (ViewBag.RowsAffected == null)
+{
+    using (Html.BeginForm())
+    {
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="multiplier"> Enter a number to multiply every course's credits by:</label>
+                @Html.TextBox("multiplier", "1", new { @class = "form-control", @style = "max-width:45px", @maxlength = "1", @pattern = "[1-9]{1}", @title = "multiplier must be a number between 1 and 9" })
+                @*<input type="text" class="form-control" id="multiplier" value="1" style="max-width:40px" maxlength="1" pattern="[1-9]{1}" title="multiplier must be a number between 1 and 9">*@
+            </div>
+            <button type="submit" class="btn btn-default">Update</button>
+        </div>
+    }
+
+}
+@if (ViewBag.RowsAffected != null)
+            {
+    <p>
+        Number of rows updated: @ViewBag.RowsAffected
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

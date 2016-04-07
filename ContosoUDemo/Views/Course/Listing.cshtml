@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ContosoUDemo.Models.Course>
+
+@{
+    ViewBag.Title = "Available Courses";
+}
+
+<h2>Available Courses</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-inline">
+        <div class="form-group">
+            Select Department: @Html.DropDownList("SelectedDepartment", null, "All", new { onchange = "$(this).closest('form').submit();", @class = "form-control input-sm" })
+
+            <input type="submit" value="Filter" class="btn btn-sm btn-default" />
+        </div>
+    </div>
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+            <p>Description would go here...</p>
+            <p>@Html.DisplayFor(modelItem => item.Credits) Credits</p>
+            @*<p><a class="btn btn-default" href="#">View Details »</a></p>*@
+            @Html.ActionLink("View Details »", "Details", new { id = item.CourseID }, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ContosoUDemo.Models.Enrollment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Enrolled Courses</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Course @Html.DisplayNameFor(model => model.Course.CourseID)
+        </th>
+        <th>
+            Course @Html.DisplayNameFor(model => model.Course.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grade)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+        </tr>
+    }
+</table>
+
+<h2>Available Courses</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Course Number
+        </th>
+        <th>
+            Title
+        </th>
+        <th></th>
+    </tr>
+    @{
+        List<ContosoUDemo.ViewModels.AssignedCourseData> courses = ViewBag.Courses;
+
+        foreach (var course in courses)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => course.CourseID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => course.Title)
+                </td>
+                <td>
+                    <a href="@Url.Action("Enroll", "StudentEnrollment",new { courseId = course.CourseID })" title="Enroll">Enroll</a> <span class="glyphicon glyphicon-plus-sign"></span>
+                </td>
+            </tr>
+        }
+    }
+</table>

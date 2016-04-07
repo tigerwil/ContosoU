@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ContosoUDemo.ViewModels.EnrollmentDateGroup>
+@{
+    ViewBag.Title = "Student Body Statistics";
+}
+
+<h2>Student Body Statistics</h2>
+
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @*Enrollment Date*@
+            @Html.ActionLink("Enrollment Date","Stats", new { sortOrder = ViewBag.DateSortParm})
+        </th>
+        <th>
+            @*Students*@
+            @Html.ActionLink("Students", "Stats", new { sortOrder = ViewBag.StudentSortParm})
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @item.StudentCount
+            </td>
+        </tr>
+    }
+</table>

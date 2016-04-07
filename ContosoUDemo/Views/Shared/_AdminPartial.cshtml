@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("admin"))
+    {
+        //Authenticated administrator user only
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Students <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Students", "Index", "Student")</li>
+                <li>@Html.ActionLink("Courses", "Index", "Course")</li>
+                <li>@Html.ActionLink("Enrollment", "Index", "Enrollment")</li>
+                <li>@Html.ActionLink("Stats Report", "Stats", "Student")</li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Faculty &amp; Staff <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                <li>@Html.ActionLink("Departments", "Index", "Department")</li>
+            </ul>
+        </li>
+    }
+    else if (User.IsInRole("student"))
+    {
+        //Authenticated student user
+        <li>@Html.ActionLink("Your Courses", "Index", "StudentEnrollment")</li>
+    }
+    else if (User.IsInRole("instructor"))
+    {
+        //Authenticated instructor user
+        <li>@Html.ActionLink("Your Courses", "Index", "InstructorCourse")</li>
+    }
+}
+else
+{
+    //non-authenticated guest user
+    <li>@Html.ActionLink("Courses", "Listing", "Course")</li>
+}
+
+
+

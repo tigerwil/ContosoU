@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ContosoUDemo.Models.Course>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>Courses</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <div class="form-inline">
+        <div class="form-group">
+            Select Department: @Html.DropDownList("SelectedDepartment", null, "All", new { onchange = "$(this).closest('form').submit();", @class = "form-control input-sm" })
+
+            <input type="submit" value="Filter" class="btn btn-sm btn-default" />
+        </div>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*mwilliams
+                @Html.DisplayNameFor(model => model.Department.Name)*@
+            @Html.DisplayNameFor(model => model.CourseID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Credits)
+        </th>
+        <th>
+            @* mwilliams:  added department info *@
+            Department
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @* mwilliams
+                    @Html.DisplayFor(modelItem => item.Department.Name)*@
+                @Html.DisplayFor(modelItem => item.CourseID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @* mwilliams: added department info *@
+                @Html.DisplayFor(modelItem => item.Department.Name)
+
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CourseID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+            </td>
+        </tr>
+    }
+
+</table>
+@* mwilliams:  add link to UpdateCourseCredits *@
+<div>
+    @Html.ActionLink("Update Course Credits", "UpdateCourseCredits")
+</div>

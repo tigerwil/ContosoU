@@ -1,0 +1,102 @@
+﻿@* mwilliams:  added paging *@
+@*@model IEnumerable<ContosoUDemo.Models.Student>*@
+@model PagedList.IPagedList<ContosoUDemo.Models.Student>
+@using PagedList.Mvc;
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+
+@{
+    ViewBag.Title = "Students";
+}
+
+<h2>Students</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@* mwilliams: add search capability *@
+@using (Html.BeginForm("Index","Student",FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" class="btn btn-sm btn-default"/>
+    </p>
+}
+<table class="table">
+    @* mwilliams:  added sorting *@
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.LastName)
+              @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm })*@
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.FirstMidName)
+              @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm })*@
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Email)
+              @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm })*@
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.EnrollmentDate)
+              @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm })*@
+            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstMidName)
+            </td>
+            <td>
+                @*mwilliams: remove mailto when using [DataType(DataType.EmailAddress)] in model
+                  @Html.DisplayFor(modelItem => item.Email)*@
+                @Html.DisplayTextFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            @* mwilliams:  add enrollments *@
+            <td>
+                @{
+                    foreach (var enroll in item.Enrollments)
+                    {
+                        @* mwilliams: Using @: to explicitly indicate the start of content
+                    in this case it will add a space
+                    http://weblogs.asp.net/scottgu/asp-net-mvc-3-razor-s-and-lt-text-gt-syntax
+                        *@
+                        @enroll.CourseID @: @enroll.Course.Title
+                        <a href="@Url.Action("Details","Course",new { id = enroll.CourseID })"> <span class="glyphicon glyphicon-eye-open"></span></a>
+                        <br />
+                    }
+                }
+            </td>
+            @* mwilliams:  end enrollments *@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                @* mwilliams added paging sticky *@
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID, page = Model.PageNumber }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID, page = Model.PageNumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID, page = Model.PageNumber })
+            </td>
+        </tr>
+    }
+
+</table>
+@* mwilliams:  added paging links *@
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
