@@ -106,85 +106,103 @@ namespace ContosoUDemo.Migrations.SchoolMigrations
             // Alterate seed method that will work every time update-database is issued
             // Initial Seed Method- can only be executed once (initial update-database command)
             // =======================================================================================================================
-         /*
+            /*
 
-            //1.Add students
-            var students = new List<Student>
-          {
-            new Student{FirstMidName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01"), Email="calexander@contoso.com"},
-            new Student{FirstMidName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="malonso@contoso.com"},
-            new Student{FirstMidName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2003-09-01"), Email="aanand@contoso.com"},
-            new Student{FirstMidName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="gbarzdukas@contoso.com"},
-            new Student{FirstMidName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="yli@contoso.com"},
-            new Student{FirstMidName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2001-09-01"), Email="pjustice@contoso.com"},
-            new Student{FirstMidName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2003-09-01"), Email="lnorman@contoso.com"},
-            new Student{FirstMidName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2005-09-01"), Email="nolivetto@contoso.com"}
-          };
-            //mwilliams:  The first parameter passed to the AddOrUpdate method specifies the property to use to check if a row already exists. 
-            //For the test student data that you are providing, the email property can be used for this purpose since each email in the list is unique
-            students.ForEach(s => context.Students.AddOrUpdate(p => p.Email, s));
-            context.SaveChanges();
+               //1.Add students
+               var students = new List<Student>
+             {
+               new Student{FirstMidName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01"), Email="calexander@contoso.com"},
+               new Student{FirstMidName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="malonso@contoso.com"},
+               new Student{FirstMidName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2003-09-01"), Email="aanand@contoso.com"},
+               new Student{FirstMidName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="gbarzdukas@contoso.com"},
+               new Student{FirstMidName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2002-09-01"), Email="yli@contoso.com"},
+               new Student{FirstMidName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2001-09-01"), Email="pjustice@contoso.com"},
+               new Student{FirstMidName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2003-09-01"), Email="lnorman@contoso.com"},
+               new Student{FirstMidName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2005-09-01"), Email="nolivetto@contoso.com"}
+             };
+               //mwilliams:  The first parameter passed to the AddOrUpdate method specifies the property to use to check if a row already exists. 
+               //For the test student data that you are providing, the email property can be used for this purpose since each email in the list is unique
+               students.ForEach(s => context.Students.AddOrUpdate(p => p.Email, s));
+               context.SaveChanges();
 
-            //2. Add Instructors
-            var instructors = new List<Instructor>
-            {
-                new Instructor {FirstMidName="Marc",LastName="Williams",HireDate=DateTime.Parse("1996-01-31"), Email="mwilliams@contoso.com" },
-                new Instructor {FirstMidName="Frank",LastName="Bekkering",HireDate=DateTime.Parse("1997-08-30") , Email="fbekkering@contoso.com"}
-            };
+               //2. Add Instructors
+               var instructors = new List<Instructor>
+               {
+                   new Instructor {FirstMidName="Marc",LastName="Williams",HireDate=DateTime.Parse("1996-01-31"), Email="mwilliams@contoso.com" },
+                   new Instructor {FirstMidName="Frank",LastName="Bekkering",HireDate=DateTime.Parse("1997-08-30") , Email="fbekkering@contoso.com"}
+               };
 
-            //mwilliams:  The first parameter passed to the AddOrUpdate method specifies the property to use to check if a row already exists. 
-            //For the test instructor data that you are providing, the email property can be used for this purpose since each email in the list is unique
-            instructors.ForEach(i => context.Instructors.AddOrUpdate(p => p.Email, i));
-            context.SaveChanges();
+               //mwilliams:  The first parameter passed to the AddOrUpdate method specifies the property to use to check if a row already exists. 
+               //For the test instructor data that you are providing, the email property can be used for this purpose since each email in the list is unique
+               instructors.ForEach(i => context.Instructors.AddOrUpdate(p => p.Email, i));
+               context.SaveChanges();
 
-            //3.  Add Courses
-            var courses = new List<Course>
-            {
-            new Course{CourseID=1050,Title="Chemistry",Credits=3,},
-            new Course{CourseID=4022,Title="Microeconomics",Credits=3,},
-            new Course{CourseID=4041,Title="Macroeconomics",Credits=3,},
-            new Course{CourseID=1045,Title="Calculus",Credits=4,},
-            new Course{CourseID=3141,Title="Trigonometry",Credits=4,},
-            new Course{CourseID=2021,Title="Composition",Credits=3,},
-            new Course{CourseID=2042,Title="Literature",Credits=4,}
-            };
-            //courses.ForEach(s => context.Courses.Add(s));
-            courses.ForEach(c => context.Courses.AddOrUpdate(ci => ci.CourseID, c));
-            context.SaveChanges();
+               //3.  Add Courses
+               var courses = new List<Course>
+               {
+               new Course{CourseID=1050,Title="Chemistry",Credits=3,},
+               new Course{CourseID=4022,Title="Microeconomics",Credits=3,},
+               new Course{CourseID=4041,Title="Macroeconomics",Credits=3,},
+               new Course{CourseID=1045,Title="Calculus",Credits=4,},
+               new Course{CourseID=3141,Title="Trigonometry",Credits=4,},
+               new Course{CourseID=2021,Title="Composition",Credits=3,},
+               new Course{CourseID=2042,Title="Literature",Credits=4,}
+               };
+               //courses.ForEach(s => context.Courses.Add(s));
+               courses.ForEach(c => context.Courses.AddOrUpdate(ci => ci.CourseID, c));
+               context.SaveChanges();
 
-            //4. Add Enrollments
-            var enrollments = new List<Enrollment>
-            {
-            new Enrollment{StudentID=1,CourseID=1050,Grade=Grade.A},
-            new Enrollment{StudentID=1,CourseID=4022,Grade=Grade.C},
-            new Enrollment{StudentID=1,CourseID=4041,Grade=Grade.B},
-            new Enrollment{StudentID=2,CourseID=1045,Grade=Grade.B},
-            new Enrollment{StudentID=2,CourseID=3141,Grade=Grade.F},
-            new Enrollment{StudentID=2,CourseID=2021,Grade=Grade.F},
-            new Enrollment{StudentID=3,CourseID=1050},
-            new Enrollment{StudentID=4,CourseID=1050,},
-            new Enrollment{StudentID=4,CourseID=4022,Grade=Grade.F},
-            new Enrollment{StudentID=5,CourseID=4041,Grade=Grade.C},
-            new Enrollment{StudentID=6,CourseID=1045},
-            new Enrollment{StudentID=7,CourseID=3141,Grade=Grade.A},
-            };
-            //enrollments.ForEach(s => context.Enrollments.Add(s));
-            //check if enrollment exists for each student via student id property
-            foreach (Enrollment e in enrollments)
-            {
-                var enrollmentInDataBase = context.Enrollments.Where(
-                    s =>
-                         s.Student.ID == e.StudentID &&
-                         s.Course.CourseID == e.CourseID).SingleOrDefault();
-                if (enrollmentInDataBase == null)
-                {
-                    //no existing enrollment - add a new one
-                    context.Enrollments.Add(e);
-                }
-            }
+               //4. Add Enrollments
+               var enrollments = new List<Enrollment>
+               {
+               new Enrollment{StudentID=1,CourseID=1050,Grade=Grade.A},
+               new Enrollment{StudentID=1,CourseID=4022,Grade=Grade.C},
+               new Enrollment{StudentID=1,CourseID=4041,Grade=Grade.B},
+               new Enrollment{StudentID=2,CourseID=1045,Grade=Grade.B},
+               new Enrollment{StudentID=2,CourseID=3141,Grade=Grade.F},
+               new Enrollment{StudentID=2,CourseID=2021,Grade=Grade.F},
+               new Enrollment{StudentID=3,CourseID=1050},
+               new Enrollment{StudentID=4,CourseID=1050,},
+               new Enrollment{StudentID=4,CourseID=4022,Grade=Grade.F},
+               new Enrollment{StudentID=5,CourseID=4041,Grade=Grade.C},
+               new Enrollment{StudentID=6,CourseID=1045},
+               new Enrollment{StudentID=7,CourseID=3141,Grade=Grade.A},
+               };
+               //enrollments.ForEach(s => context.Enrollments.Add(s));
+               //check if enrollment exists for each student via student id property
+               foreach (Enrollment e in enrollments)
+               {
+                   var enrollmentInDataBase = context.Enrollments.Where(
+                       s =>
+                            s.Student.ID == e.StudentID &&
+                            s.Course.CourseID == e.CourseID).SingleOrDefault();
 
-            context.SaveChanges();
-            */
+                  //Single()           -> use when 1 item expected (not 0 or 2 and more)
+                    //You got 0 when 1 was expected (error)
+                    //You got 1 when 1 was expected (ok)
+                    //You got 2 or more when 1 was expected (error)
+
+                  //SingleOrDefault()  -> use when 0 or 1 items expected
+                    //You got 0 when 0 or 1 was expected (ok)
+                    //You got 1 when 0 or 1 was expected (ok)
+                    //You got 2 or more when 0 or 1 was expected (error)
+                    //http://www.technicaloverload.com/linq-single-vs-singleordefault-vs-first-vs-firstordefault/
+                    
+                     //Whenever you use SingleOrDefault, you clearly state that the query should result in at most 
+                     // a single result. 
+                      
+                     // On the other hand, when FirstOrDefault is used, the query can return any amount of results 
+                     // but you state that you only want the first one.
+                     
+                   if (enrollmentInDataBase == null)
+                   {
+                       //no existing enrollment - add a new one
+                       context.Enrollments.Add(e);
+                   }
+               }
+
+               context.SaveChanges();
+               */
             // ==========================================END  INITIAL SEED ============================================================
 
 
