@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using ContosoUDemo.DAL;
 using ContosoUDemo.Models;
 using System.Data.Entity.Infrastructure;
+using ASPExam_DBFirst.Helpers;//mwilliams: added image upload
 
 namespace ContosoUDemo.Controllers
 {
@@ -56,13 +57,32 @@ namespace ContosoUDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID")] Department department)
+        public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID")] Department department, HttpPostedFileBase ImageName)
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //mwilliams: added image upload
+                if (ImageName != null && ImageName.ContentLength > 0)
+                {
+                    //save new department to database
+                    db.Departments.Add(department);
+                    await db.SaveChangesAsync();
+
+                    //get the IDENTITY back and use it as the image name
+                    //using the department id (IDENTITY)
+                    string pictureName = department.DepartmentID.ToString();
+                    //Image Uploader:  // rename, resize, and upload 
+                    ImageUpload imageUpload = new ImageUpload { Width = 128 };                
+                    ImageResult imageResult = imageUpload.RenameUploadFile(ImageName, pictureName);
+                    return RedirectToAction("Index");
+                }else
+                {
+                    ViewBag.Message = "You have not specified a file.";
+                    return View();
+                }
+                //db.Departments.Add(department);
+                //await db.SaveChangesAsync();
+               // return RedirectToAction("Index");
             }
 
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);

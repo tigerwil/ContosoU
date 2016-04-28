@@ -7,10 +7,14 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@*mwilliams:  added file upload
+    @using (Html.BeginForm())
+*@
+@using (Html.BeginForm("Create", "Department", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Department</h4>
         <hr />
@@ -41,11 +45,18 @@
 
         <div class="form-group">
             @*mwilliams
-             @Html.LabelFor(model => model.InstructorID, "InstructorID", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                @Html.LabelFor(model => model.InstructorID, "InstructorID", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <label class="control-label col-md-2" for="InstructorID">Administrator</label>
             <div class="col-md-10">
                 @Html.DropDownList("InstructorID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.InstructorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* mwilliams:  added image upload *@
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ImageName">Image</label>
+            <div class="col-md-10">
+                <input type="file" id="ImageName" name="ImageName" class="form-control" />
             </div>
         </div>
 
