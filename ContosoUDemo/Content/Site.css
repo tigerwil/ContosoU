@@ -33,3 +33,11 @@ textarea {
 .dropdown-menu {
     background-color: rgb(200, 94, 23);
 }
+
+/* center department list on home page */
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
