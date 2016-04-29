@@ -95,7 +95,8 @@ namespace ContosoUDemo.Controllers
                     return RedirectToAction("Index");
                 }else
                 {
-                    ViewBag.Message = "You have not specified a file.";
+                    //ViewBag.Message = "You have not specified a file.";
+                    ModelState.AddModelError("", "You have not selected an image file.");
                     return View(department);
                 }
                 //db.Departments.Add(department);
