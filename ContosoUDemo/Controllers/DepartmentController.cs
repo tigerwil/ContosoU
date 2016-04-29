@@ -59,11 +59,29 @@ namespace ContosoUDemo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "DepartmentID,Name,Budget,StartDate,InstructorID")] Department department, HttpPostedFileBase ImageName)
         {
+
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+
+
             if (ModelState.IsValid)
             {
                 //mwilliams: added image upload
+                //http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
                 if (ImageName != null && ImageName.ContentLength > 0)
                 {
+                    var validImageTypes = new string[]
+                        {
+                            "image/gif",
+                            "image/jpeg",
+                            "image/png"
+                        };
+                    if (!validImageTypes.Contains(ImageName.ContentType))
+                    {
+                        ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                        return View(department);
+                    }
+
+
                     //save new department to database
                     db.Departments.Add(department);
                     await db.SaveChangesAsync();
@@ -78,14 +96,14 @@ namespace ContosoUDemo.Controllers
                 }else
                 {
                     ViewBag.Message = "You have not specified a file.";
-                    return View();
+                    return View(department);
                 }
                 //db.Departments.Add(department);
                 //await db.SaveChangesAsync();
                // return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", department.InstructorID);
             return View(department);
         }
 
