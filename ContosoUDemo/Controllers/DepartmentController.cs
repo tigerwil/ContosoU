@@ -66,18 +66,19 @@ namespace ContosoUDemo.Controllers
             if (ModelState.IsValid)
             {
                 //mwilliams: added image upload
-                //http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
+                //Using ViewModel see: http://cpratt.co/file-uploads-in-asp-net-mvc-with-view-models/
                 if (ImageName != null && ImageName.ContentLength > 0)
                 {
                     var validImageTypes = new string[]
                         {
-                            "image/gif",
-                            "image/jpeg",
+                            //"image/gif",
+                            //"image/jpeg",
                             "image/png"
                         };
                     if (!validImageTypes.Contains(ImageName.ContentType))
                     {
-                        ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                        //ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                        ModelState.AddModelError("", "Please choose a PNG image.");
                         return View(department);
                     }
 
@@ -142,7 +143,9 @@ namespace ContosoUDemo.Controllers
         //mwilliams:  updated Edit Post to include Concurrency Check
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int? id, byte[] rowVersion)
+        //public async Task<ActionResult> Edit(int? id, byte[] rowVersion)
+        //mwiliams:  added image upload
+        public async Task<ActionResult> Edit(int? id, byte[] rowVersion, HttpPostedFileBase ImageName)
         {
             string[] fieldsToBind = new string[] { "Name", "Budget", "StartDate", "InstructorID", "RowVersion" };
 
@@ -152,6 +155,7 @@ namespace ContosoUDemo.Controllers
             }
 
             var departmentToUpdate = await db.Departments.FindAsync(id);
+            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", departmentToUpdate.InstructorID);
 
             //if the FindAsync returns null, the department was deleted by another user - return to view and show error message
             if (departmentToUpdate == null)
@@ -179,9 +183,39 @@ namespace ContosoUDemo.Controllers
             {
                 try
                 {
+                    //mwilliams:  added upload
+                    if (ImageName != null && ImageName.ContentLength > 0)
+                    {
+                        var validImageTypes = new string[]
+                            {
+                            //"image/gif",
+                            //"image/jpeg",
+                            "image/png"
+                            };
+                        if (!validImageTypes.Contains(ImageName.ContentType))
+                        {
+                            //ModelState.AddModelError("", "Please choose either a GIF, JPG or PNG image.");
+                            ModelState.AddModelError("", "Please choose a PNG image.");
+                            return View(departmentToUpdate);
+                        }
+
+                        //upload new image
+                        string pictureName = departmentToUpdate.DepartmentID.ToString();
+                        //Image Uploader:  // rename, resize, and upload 
+                        ImageUpload imageUpload = new ImageUpload { Width = 128 };
+                        ImageResult imageResult = imageUpload.RenameUploadFile(ImageName, pictureName);
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "You have not selected an image file.");
+                        return View(departmentToUpdate);
+                    }
+
+
+                    //end upload
                     db.Entry(departmentToUpdate).OriginalValues["RowVersion"] = rowVersion;
                     await db.SaveChangesAsync();
-
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException ex)
@@ -226,7 +260,7 @@ namespace ContosoUDemo.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", departmentToUpdate.InstructorID);
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "FullName", departmentToUpdate.InstructorID);
             return View(departmentToUpdate);
         }
 
