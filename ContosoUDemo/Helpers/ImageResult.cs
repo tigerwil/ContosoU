@@ -9,6 +9,6 @@ namespace ASPExam_DBFirst.Helpers
     {
         public bool Success { get; set; }
         public string ImageName { get; set; }
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; }        
     }
 }

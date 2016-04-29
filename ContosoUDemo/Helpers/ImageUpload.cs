@@ -11,7 +11,7 @@ namespace ASPExam_DBFirst.Helpers
 {
     public class ImageUpload
     {
-        // set default size here
+       // set default size here
         public int Width { get; set; }
 
         public int Height { get; set; }
