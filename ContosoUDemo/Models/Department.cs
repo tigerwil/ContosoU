@@ -10,6 +10,7 @@ namespace ContosoUDemo.Models
         public int DepartmentID { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
+        //[Required]
         public string Name { get; set; }
 
         [DataType(DataType.Currency)]

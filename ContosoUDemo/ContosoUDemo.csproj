@@ -199,6 +199,16 @@
       <DependentUpon>201603241846164_InitialSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
+    <Compile Include="Migrations\LiveCollegeMigrations\201604291504204_InitialCreate.cs" />
+    <Compile Include="Migrations\LiveCollegeMigrations\201604291504204_InitialCreate.Designer.cs">
+      <DependentUpon>201604291504204_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\LiveCollegeMigrations\Configuration.cs" />
+    <Compile Include="Migrations\LiveIdentityMigrations\201604291458228_InitialCreate.cs" />
+    <Compile Include="Migrations\LiveIdentityMigrations\201604291458228_InitialCreate.Designer.cs">
+      <DependentUpon>201604291458228_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\LiveIdentityMigrations\Configuration.cs" />
     <Compile Include="Migrations\SchoolMigrations\201602231954512_InitialCreate.cs" />
     <Compile Include="Migrations\SchoolMigrations\201602231954512_InitialCreate.Designer.cs">
       <DependentUpon>201602231954512_InitialCreate.cs</DependentUpon>
@@ -248,7 +258,9 @@
     <Content Include="DeptPics\3.png" />
     <Content Include="DeptPics\4.png" />
     <Content Include="DeptPics\5.png" />
-    <Content Include="DeptPics\6.png" />
+    <Content Include="DeptPics\7.png" />
+    <Content Include="DeptPics\8.png" />
+    <Content Include="DeptPics\9.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -261,6 +273,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\TinyCollege.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -362,6 +375,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\IdentityMigrations\201603241846164_InitialSeed.resx">
       <DependentUpon>201603241846164_InitialSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\LiveCollegeMigrations\201604291504204_InitialCreate.resx">
+      <DependentUpon>201604291504204_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\LiveIdentityMigrations\201604291458228_InitialCreate.resx">
+      <DependentUpon>201604291458228_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\SchoolMigrations\201602231954512_InitialCreate.resx">
       <DependentUpon>201602231954512_InitialCreate.cs</DependentUpon>
