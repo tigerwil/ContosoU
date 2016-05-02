@@ -49,7 +49,7 @@ namespace ContosoUDemo.Controllers
             return View(courses.ToList());
         }
 
-
+        [AllowAnonymous]
 
         // GET: Course/Details/5
         public ActionResult Details(int? id)

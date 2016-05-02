@@ -39,7 +39,7 @@
             <div class="thumbnail">
                 <img src="~/DeptPics/@(item.DepartmentID).png" alt="@item.Name">
                 <div class="caption">
-                    <a href="@Url.Action("Index","Course",new {SelectedDepartment=item.DepartmentID })"><h4>@item.Name</h4></a>
+                    <a href="@Url.Action("Listing","Course",new {SelectedDepartment=item.DepartmentID })"><h4>@item.Name</h4></a>
                 </div>
             </div>
         </div>

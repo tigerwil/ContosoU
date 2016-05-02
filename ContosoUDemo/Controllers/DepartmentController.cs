@@ -206,11 +206,11 @@ namespace ContosoUDemo.Controllers
                         ImageResult imageResult = imageUpload.RenameUploadFile(ImageName, pictureName);
 
                     }
-                    else
-                    {
-                        ModelState.AddModelError("", "You have not selected an image file.");
-                        return View(departmentToUpdate);
-                    }
+                    //else
+                    //{
+                    //    ModelState.AddModelError("", "You have not selected an image file.");
+                    //    return View(departmentToUpdate);
+                    //}
 
 
                     //end upload
